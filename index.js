@@ -8,12 +8,13 @@ const URL = 'https://uc-music-service.herokuapp.com';
     try{
         const albumList = document.getElementById('albums')
         const response = await fetch(`${URL}/album`);
-        const albums = await response.json()
+        const albums = await response.json();
+        var soundFile = new Audio(); 
 
         albums.forEach(function(album){
             const li = document.createElement('li')
 
-
+            //Creates album covers
             var albumCover = document.createElement("IMG");
             albumCover.setAttribute("src", album.cover);
             albumCover.setAttribute("width", "150");
@@ -36,13 +37,7 @@ const URL = 'https://uc-music-service.herokuapp.com';
                         song.appendChild(songItem);
                         songList.appendChild(song);
                         
-
-                        //Create the audio tag
-                        var soundFile = document.createElement("audio");
-                        var src = document.createElement("source");
-                        
-                        
-
+                        //Call function when a song is clicked
                         songItem.onclick = async function () {
                             
                             var songUrl = albumDetails.songs[i].url;
@@ -50,17 +45,11 @@ const URL = 'https://uc-music-service.herokuapp.com';
                             //set soundFile source to URL clicked
                             soundFile.src = songUrl;
 
-                            //stop playing songs on click
-                            soundFile.pause();
-                            soundFile.currentTime = 0;
-
                             //play song
                             soundFile.play();
 
                             console.log(songUrl)
                         }
-                        
-                        
                         
                     }
 
