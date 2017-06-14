@@ -13,7 +13,6 @@ const URL = 'https://uc-music-service.herokuapp.com';
         albums.forEach(function(album){
             const li = document.createElement('li')
 
-            //li.innerText = album.name
 
             var albumCover = document.createElement("IMG");
             albumCover.setAttribute("src", album.cover);
@@ -30,13 +29,32 @@ const URL = 'https://uc-music-service.herokuapp.com';
                     document.getElementById("songs").innerHTML = "";
                     const songList = document.getElementById('songs')
 
-                    let s = document.createElement('ul');
+                    let song = document.createElement('ul');
                     for(let i=0; i < albumDetails.songs.length; i++)
                     {
                         let d = document.createElement('li');
                         d.innerText = albumDetails.songs[i].name;
-                        s.appendChild(d);
-                        songList.appendChild(s);
+                        song.appendChild(d);
+                        songList.appendChild(song);
+                        
+
+                        song.onclick = async function () {
+                            const songUrl = albumDetails.songs[i].url;
+
+                            //Create the audio tag
+                            var soundFile = document.createElement("audio");
+
+                            //Load the sound file (using a source element for expandability)
+                            var src = document.createElement("source");
+                            src.src = songUrl;
+                            soundFile.appendChild(src);
+
+                            soundFile.play();
+                            console.log(songUrl)
+                        }
+                        
+                        
+                        
                     }
 
                     console.log(albumDetails);
