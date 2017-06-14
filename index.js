@@ -32,23 +32,24 @@ const URL = 'https://uc-music-service.herokuapp.com';
                     let song = document.createElement('ul');
                     for(let i=0; i < albumDetails.songs.length; i++)
                     {
-                        let d = document.createElement('li');
-                        d.innerText = albumDetails.songs[i].name;
-                        song.appendChild(d);
+                        let songItem = document.createElement('li');
+                        songItem.innerText = albumDetails.songs[i].name;
+                        song.appendChild(songItem);
                         songList.appendChild(song);
                         
 
-                        song.onclick = async function () {
-                            const songUrl = albumDetails.songs[i].url;
+                        //Create the audio tag
+                        var soundFile = document.createElement("audio");
+                        var src = document.createElement("source");
+                        
+                        songItem.onclick = async function () {
+                            
+                            var songUrl = albumDetails.songs[i].url;
+                       
+                            soundFile.src = songUrl;
 
-                            //Create the audio tag
-                            var soundFile = document.createElement("audio");
-
-                            //Load the sound file (using a source element for expandability)
-                            var src = document.createElement("source");
-                            src.src = songUrl;
-                            soundFile.appendChild(src);
-
+                            soundFile.pause();
+                            soundFile.currentTime = 0;
                             soundFile.play();
                             console.log(songUrl)
                         }
