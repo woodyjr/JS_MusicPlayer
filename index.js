@@ -24,7 +24,6 @@ const URL = 'https://uc-music-service.herokuapp.com';
                 try{
                     const response = await fetch(`${URL}/album/${album.id}`)
                     const albumDetails = await response.json();
-                    var songsList = document.createElement("ul");
 
                     document.getElementById("songs").innerHTML = "";
                     const songList = document.getElementById('songs')
@@ -42,15 +41,22 @@ const URL = 'https://uc-music-service.herokuapp.com';
                         var soundFile = document.createElement("audio");
                         var src = document.createElement("source");
                         
+                        
+
                         songItem.onclick = async function () {
                             
                             var songUrl = albumDetails.songs[i].url;
                        
+                            //set soundFile source to URL clicked
                             soundFile.src = songUrl;
 
+                            //stop playing songs on click
                             soundFile.pause();
                             soundFile.currentTime = 0;
+
+                            //play song
                             soundFile.play();
+
                             console.log(songUrl)
                         }
                         
